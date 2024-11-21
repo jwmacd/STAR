@@ -1,6 +1,6 @@
 <div align="center">
     <h1>
-    STAR:<br> Spatial-Temporal Augmentation with Text-to-Video Models for Real-World Video Super-Resolution
+    STAR: Spatial-Temporal Augmentation with Text-to-Video Models for Real-World Video Super-Resolution
     </h1>
     <div>
         <a href='https://github.com/CSRuiXie' target='_blank'>Rui Xie<sup>1*</sup></a>,&emsp;
