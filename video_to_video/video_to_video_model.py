@@ -107,7 +107,7 @@ class VideoToVideo_sr():
             chunk_inds = make_chunks(frames_num, interp_f_num=0, max_chunk_len=max_chunk_len) if frames_num > max_chunk_len else None
 
             solver = 'dpmpp_2m_sde' # 'heun' | 'dpmpp_2m_sde' 
-            gen_vid, _ = self.diffusion.sample_sr(
+            gen_vid = self.diffusion.sample_sr(
                 noise=noised_lr,
                 model=self.generator,
                 model_kwargs=model_kwargs,
@@ -115,7 +115,7 @@ class VideoToVideo_sr():
                 guide_rescale=0.2,
                 solver=solver,
                 solver_mode=solver_mode,
-                return_intermediate='x0',
+                return_intermediate=None,
                 steps=steps,
                 t_max=total_noise_levels - 1,
                 t_min=0,
@@ -124,7 +124,7 @@ class VideoToVideo_sr():
             torch.cuda.empty_cache()
 
             logger.info(f'sampling, finished.')
-            vid_tensor_gen = self.vae_decode_chunk(gen_vid, chunk_size=2)
+            vid_tensor_gen = self.vae_decode_chunk(gen_vid, chunk_size=3)
 
             logger.info(f'temporal vae decoding, finished.')
 
