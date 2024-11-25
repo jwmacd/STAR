@@ -43,7 +43,7 @@
 
 ## 📷 Results Display
 ![STAR](assets/teaser.png)
-
+![STAR](assets/real_world.png)
 
 ## ⚙️ Dependencies and Installation
 ```
