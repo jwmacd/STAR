@@ -55,7 +55,8 @@ class VideoToVideo_sr():
 
         # Temporal VAE
         vae = AutoencoderKLTemporalDecoder.from_pretrained(
-            '/mnt/bn/videodataset-uswest/VSR/pretrained_models/stable-video-diffusion-img2vid', subfolder="vae")
+            "stabilityai/stable-video-diffusion-img2vid", subfolder="vae", variant="fp16"
+        )
         vae.eval()
         vae.requires_grad_(False)
         vae.to(self.device)
