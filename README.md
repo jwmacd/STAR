@@ -56,10 +56,11 @@
 git clone https://github.com/NJU-PCALab/STAR.git
 cd STAR
 
-## create an environment with python >= 3.8
-conda create -n star python=3.8
+## create an environment
+conda create -n star python=3.10
 conda activate star
 pip install -r requirements.txt
+sudo apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 ```
 
 ## 🚀 Inference
