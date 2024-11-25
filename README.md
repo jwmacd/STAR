@@ -25,7 +25,7 @@
             <a href="https://arxiv.org/abs/2407.07667" target='_blank'>
                 <img src="https://img.shields.io/badge/arXiv-2312.06640-b31b1b.svg">
             </a>
-            <a href="https://youtu.be/QMR_5weifGg" target='_blank'>
+            <a href="https://youtu.be/hx0zrql-SrU" target='_blank'>
                 <img src="https://img.shields.io/badge/Demo%20Video-%23FF0000.svg?logo=YouTube&logoColor=white">
             </a>
         </h4>
