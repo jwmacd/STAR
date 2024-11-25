@@ -74,7 +74,7 @@ As for the prompt, there are three options: 1. No prompt. 2. Automatically gener
 
 
 #### Step 3: Change the path
-You need to change the paths in `inference_sr.sh` to your local corresponding paths, including `video_folder_path`, `txt_file_path`, `model_path`, and `save_dir`.
+You need to change the paths in `video_super_resolution/scripts/inference_sr.sh` to your local corresponding paths, including `video_folder_path`, `txt_file_path`, `model_path`, and `save_dir`.
 
 
 #### Step 4: Running inference command
