@@ -64,7 +64,7 @@ sudo apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 ```
 
 ## 🚀 Inference
-#### Step 1: Download the pretrained model STAR from [HuggingFace](https://huggingface.co/stabilityai/stable-diffusion-2-base).
+#### Step 1: Download the pretrained model STAR from [HuggingFace](https://huggingface.co/SherryX/STAR).
 We provide two verisions, `heavy_deg.pt` for heavy degraded videos and `light_deg.pt` for light degraded videos (e.g., the low-resolution video downloaded from Bilibili).
 
 You can put the weight into `pretrained_weight/`.
