@@ -44,7 +44,7 @@
 ## 📷 Results Display
 ![STAR](assets/teaser.png)
 ![STAR](assets/real_world.png)
-More visual results can be found in our [Project Page](https://nju-pcalab.github.io/projects/STAR) and [Video Demo](https://youtu.be/hx0zrql-SrU).
+👀 More visual results can be found in our [Project Page](https://nju-pcalab.github.io/projects/STAR) and [Video Demo](https://youtu.be/hx0zrql-SrU).
 
 
 ## ⚙️ Dependencies and Installation
