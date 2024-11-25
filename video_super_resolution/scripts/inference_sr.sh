@@ -17,7 +17,7 @@ done
 mapfile -t lines < <(grep -v '^\s*$' "$txt_file_path")
 
 # List of frame counts
-frame_length = 32
+frame_length=32
 
 # Debugging output
 echo "Number of MP4 files: ${#mp4_files[@]}"
@@ -40,7 +40,7 @@ for i in "${!mp4_files[@]}"; do
     echo "Processing video file: $mp4_file with prompt: $line"
         
     # Run Python script with parameters
-    Python \
+    python \
         ./video_super_resolution/scripts/inference_sr.py \
         --solver_mode 'fast' \
         --steps 15 \
