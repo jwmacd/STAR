@@ -73,7 +73,7 @@ class VEnhancer_sr():
             data_tensor = collate_fn(pre_data, 'cuda:0')
             output = self.model.test(data_tensor, total_noise_levels, steps=self.steps, \
                                 solver_mode=self.solver_mode, guide_scale=self.guide_scale, \
-                                max_chunk_len=self.max_chunk_len, variant_info=self.variant_info,
+                                max_chunk_len=self.max_chunk_len
                                 )
 
         output = tensor2vid(output)
