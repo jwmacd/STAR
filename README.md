@@ -38,7 +38,7 @@
 
 
 ## 🔎 Method Overview
-![STAR](assets/overview.pdf)
+![STAR](assets/overview.png)
 
 
 ## 📷 Results Display
