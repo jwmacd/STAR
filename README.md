@@ -1,10 +1,6 @@
 <div align="center">
     <h1>
-    <span style="color: #FFD700;">S</span>
-    <span style="color: #FFFFFF;">T</span>
-    <span style="color: #ADD8E6;">A</span>
-    <span style="color: #FF69B4;">R</span>
-    :<br> <span style="color: #FFD700;">S</span>patial-<span style="color: #FFFFFF;">T</span>emporal <span style="color: #ADD8E6;">A</span>ugmentation with Text-to-Video Models for <span style="color: #FF69B4;">R</span>eal-World Video Super-Resolution
+    STAR: Spatial-Temporal Augmentation with Text-to-Video Models for Real-World Video Super-Resolution
     </h1>
     <div>
         <a href='https://github.com/CSRuiXie' target='_blank'>Rui Xie<sup>1*</sup></a>,&emsp;
