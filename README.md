@@ -19,7 +19,7 @@
     </div>
     <div>
         <h4 align="center">
-            <a href="https://vchitect.github.io/VEnhancer-project/" target='_blank'>
+            <a href="https://nju-pcalab.github.io/projects/STAR" target='_blank'>
                 <img src="https://img.shields.io/badge/🌟-Project%20Page-blue">
             </a>
             <a href="https://arxiv.org/abs/2407.07667" target='_blank'>
