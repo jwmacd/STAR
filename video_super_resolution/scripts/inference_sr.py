@@ -114,13 +114,6 @@ def main():
     file_name = args.file_name
     upscale = args.upscale
     max_chunk_len = args.max_chunk_len
-    if args.variant_info is not None:
-        print('*** Load inference strategy inforation ***')
-        variant_info = json.loads(args.variant_info)
-        print(variant_info)
-    else:
-        print('*** inference strategy inforation is None ***')
-        variant_info = None
 
     steps = args.steps
     solver_mode = args.solver_mode
@@ -137,7 +130,7 @@ def main():
                             guide_scale=guide_scale,
                             upscale=upscale,
                             max_chunk_len=max_chunk_len,
-                            variant_info=variant_info,
+                            variant_info=None,
                             )
 
     venhancer_sr.enhance_a_video(input_path, prompt)
