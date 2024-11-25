@@ -85,10 +85,6 @@ bash video_super_resolution/scripts/inference_sr.sh
 This project is based on [I2VGen-XL](https://github.com/ali-vilab/VGen), [VEnhancer](https://github.com/Vchitect/VEnhancer) and [CogVideoX](https://github.com/THUDM/CogVideo). Thanks for their awesome works.
 
 
-## 📧 Contact
-If you have any inquiries, please don't hesitate to reach out via email at `ruixie0097@gmail.com`
-
-
 ## 🎓Citations
 If our project helps your research or work, please consider citing our paper:
 
@@ -102,3 +98,7 @@ If our project helps your research or work, please consider citing our paper:
       primaryClass={cs.CV}
 }
 ```
+
+
+## 📧 Contact
+If you have any inquiries, please don't hesitate to reach out via email at `ruixie0097@gmail.com`
