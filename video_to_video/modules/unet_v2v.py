@@ -395,7 +395,7 @@ class SpatialAttention(nn.Module):
         out = self.sigmoid(weight) * x
         return out
 
-class TemporalLocalAttention(nn.Module):  # b c t h w
+class TemporalLocalAttention(nn.Module):
     def __init__(self):
         super(TemporalLocalAttention, self).__init__()
         self.conv1 = nn.Linear(in_features=2, out_features=1, bias=False)
@@ -480,14 +480,12 @@ class BasicTransformerBlock(nn.Module):
 
         if self.local_type == 'temp' and self.is_ctrl:
 
-            # x_local = rearrange(x, '(b h w) t c -> b c t h w', h=h, w=w)
             x_local = self.local1(x)
 
             x = self.attn1(
             self.norm1(x_local),
             context=context if self.disable_self_attn else None) + x
 
-            # x_local = rearrange(x, '(b h w) t c -> b c t h w', h=h, w=w)
             x_local = self.local2(x)
 
             x = self.attn2(self.norm2(x_local), context=context) + x
