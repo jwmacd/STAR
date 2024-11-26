@@ -123,7 +123,7 @@ def main():
 
     star = STAR(
                 result_dir=save_dir,
-                file_name=file_name,  # new added
+                file_name=file_name,
                 model_path=model_path,
                 solver_mode=solver_mode,
                 steps=steps,
