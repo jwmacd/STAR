@@ -51,8 +51,6 @@ class STAR():
         caption = text + self.model.positive_prompt
 
         input_frames, input_fps = load_video(video_path)
-        in_f_num = len(input_frames)
-        logger.info('input frames length: {}'.format(in_f_num))
         logger.info('input fps: {}'.format(input_fps))
 
         video_data = preprocess(input_frames)
