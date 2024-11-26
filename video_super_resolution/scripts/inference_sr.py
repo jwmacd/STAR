@@ -25,7 +25,6 @@ class STAR():
                  guide_scale=7.5,
                  upscale=4,
                  max_chunk_len=32,
-                 variant_info=None,
                  ):
         self.model_path=model_path
         logger.info('checkpoint_path: {}'.format(self.model_path))
@@ -44,7 +43,6 @@ class STAR():
         self.guide_scale=guide_scale
         self.upscale = upscale
         self.max_chunk_len=max_chunk_len
-        self.variant_info=variant_info
 
     def enhance_a_video(self, video_path, prompt):
         logger.info('input video path: {}'.format(video_path))
@@ -95,7 +93,6 @@ def parse_args():
     parser.add_argument("--prompt", type=str, default='a good video', help="prompt")
     parser.add_argument("--upscale", type=int, default=4, help='up-scale')
     parser.add_argument("--max_chunk_len", type=int, default=32, help='max_chunk_len')
-    parser.add_argument("--variant_info", type=str, default=None, help='information of inference strategy')
 
     parser.add_argument("--cfg", type=float, default=7.5)
     parser.add_argument("--solver_mode", type=str, default='fast', help='fast | normal')
@@ -130,7 +127,6 @@ def main():
                 guide_scale=guide_scale,
                 upscale=upscale,
                 max_chunk_len=max_chunk_len,
-                variant_info=None,
                 )
 
     star.enhance_a_video(input_path, prompt)
