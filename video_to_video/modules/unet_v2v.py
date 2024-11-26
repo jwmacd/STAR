@@ -396,7 +396,7 @@ class SpatialAttention(nn.Module):
         return out
 
 class TemporalLocalAttention(nn.Module):  # b c t h w
-    def __init__(self, dim, kernel_size=7):
+    def __init__(self):
         super(TemporalLocalAttention, self).__init__()
         self.conv1 = nn.Linear(in_features=2, out_features=1, bias=False)
         self.sigmoid = nn.Sigmoid()
