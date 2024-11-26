@@ -15,7 +15,7 @@ from inference_utils import *
 logger = get_logger()
 
 
-class VEnhancer_sr():
+class STAR():
     def __init__(self, 
                  result_dir='./results/',
                  file_name='000_video.mp4',
@@ -121,19 +121,19 @@ def main():
 
     assert solver_mode in ('fast', 'normal')
 
-    venhancer_sr = VEnhancer_sr(
-                            result_dir=save_dir,
-                            file_name=file_name,  # new added
-                            model_path=model_path,
-                            solver_mode=solver_mode,
-                            steps=steps,
-                            guide_scale=guide_scale,
-                            upscale=upscale,
-                            max_chunk_len=max_chunk_len,
-                            variant_info=None,
-                            )
+    star = STAR(
+                result_dir=save_dir,
+                file_name=file_name,  # new added
+                model_path=model_path,
+                solver_mode=solver_mode,
+                steps=steps,
+                guide_scale=guide_scale,
+                upscale=upscale,
+                max_chunk_len=max_chunk_len,
+                variant_info=None,
+                )
 
-    venhancer_sr.enhance_a_video(input_path, prompt)
+    star.enhance_a_video(input_path, prompt)
 
 
 if __name__ == '__main__':
