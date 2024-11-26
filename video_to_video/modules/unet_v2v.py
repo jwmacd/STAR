@@ -377,8 +377,6 @@ class CrossAttention(nn.Module):
         return self.to_out(out)
 
 
-
-
 class SpatialAttention(nn.Module):
     def __init__(self):
         super(SpatialAttention, self).__init__()
@@ -490,15 +488,6 @@ class BasicTransformerBlock(nn.Module):
 
             x = self.attn2(self.norm2(x_local), context=context) + x
             x = self.ff(self.norm3(x)) + x
-
-        # elif self.local_type == 'space' and self.is_ctrl:
-        #     # print('*** use original attention ***')
-        # x = self.attn1(
-        # self.norm1(x),
-        # context=context if self.disable_self_attn else None) + x    # self-attention
-    
-        # x = self.attn2(self.norm2(x), context=context) + x  # cross attention or self-attention
-        # x = self.ff(self.norm3(x)) + x
 
         return x
 
