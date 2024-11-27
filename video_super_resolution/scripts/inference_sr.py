@@ -6,7 +6,8 @@ from typing import Any, Dict, List, Mapping, Tuple
 from easydict import EasyDict
 
 import sys
-sys.path.append('../../')
+base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+sys.path.append(base_path)
 from video_to_video.video_to_video_model import VideoToVideo_sr
 from video_to_video.utils.seed import setup_seed
 from video_to_video.utils.logger import get_logger
