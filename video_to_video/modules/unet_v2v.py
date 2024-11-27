@@ -454,8 +454,8 @@ class BasicTransformerBlock(nn.Module):
             self.local1 = SpatialAttention()
 
         if self.local_type == 'temp' and self.is_ctrl:
-            self.local1 = TemporalLocalAttention(dim=dim)
-            self.local2 = TemporalLocalAttention(dim=dim)
+            self.local1 = TemporalLocalAttention()
+            self.local2 = TemporalLocalAttention()
 
     def forward_(self, x, context=None):
         return checkpoint(self._forward, (x, context), self.parameters(),
