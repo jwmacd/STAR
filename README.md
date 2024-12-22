@@ -34,7 +34,7 @@
 
 
 ### 🔆 Updates
-- **2024.12.01**  The pretrained STAR model (I2VGen-XL version) and inference code have been released.
+- **2024.12.01**  The pretrained STAR model (I2VGen-XL and CogVideoX-5B versions) and inference code have been released.
 
 
 ## 🔎 Method Overview
@@ -62,7 +62,7 @@ sudo apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 
 ## 🚀 Inference
 #### Step 1: Download the pretrained model STAR from [HuggingFace](https://huggingface.co/SherryX/STAR).
-We provide two verisions, `heavy_deg.pt` for heavy degraded videos and `light_deg.pt` for light degraded videos (e.g., the low-resolution video downloaded from video websites).
+We provide two verisions for I2VGen-XL-based model, `heavy_deg.pt` for heavy degraded videos and `light_deg.pt` for light degraded videos (e.g., the low-resolution video downloaded from video websites).
 
 You can put the weight into `pretrained_weight/`.
 
