@@ -66,6 +66,7 @@ We provide two verisions for I2VGen-XL-based model, `heavy_deg.pt` for heavy deg
 
 You can put the weight into `pretrained_weight/`.
 
+Please note that the CogVideX-5B-based model supports only 720x480 input.
 
 #### Step 2: Prepare testing data
 You can put the testing videos in the `input/video/`.
