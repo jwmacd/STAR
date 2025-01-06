@@ -1,6 +1,8 @@
 ### CogVideoX-based Model Inference
 #### Step 1: Install the requirements
 ```
+conda create -n star_cog python=3.10
+conda activate star_cog
 cd cogvideox-based/sat
 pip install -r requirements.txt
 ```
