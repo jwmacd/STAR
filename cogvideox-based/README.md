@@ -15,7 +15,7 @@ As for the prompt, there are three options: 1. No prompt. 2. Automatically gener
 
 
 #### Step 4: Change the cogfigs
-You need to update the paths in `cogvideox-based/sat/configs/cogvideox_5b/cogvideox_5b_infer_sr.yaml` to match your local environment, including `load`, `input_file`, and `output_dir`.
+You need to update the paths in `cogvideox-based/sat/configs/cogvideox_5b/cogvideox_5b_infer_sr.yaml` to match your local setup, including `load` and `output_dir`. Additionally, update the `test_dataset` path in sample_sr.py.
 
 
 #### Step 5: Replace the transformer.py in sat packpage

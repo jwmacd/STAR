@@ -116,10 +116,10 @@ def resize_for_rectangle_crop(arr, image_size, reshape_mode="random"):
 
 
 def sampling_main(args, model_cls):
-    train_dataset = PairedCaptionDataset(data_dir='/mnt/bn/videodataset-uswest/VSR/dataset/SRTest/Cogvideox_test',
+    test_dataset = PairedCaptionDataset(data_dir='/mnt/bn/videodataset-uswest/VSR/dataset/SRTest/Cogvideox_test',
                                          null_text_ratio=0, num_frames=25)
-    train_dataloader = torch.utils.data.DataLoader(
-    train_dataset,
+    test_dataloader = torch.utils.data.DataLoader(
+    test_dataset,
     num_workers=8,
     batch_size=1,
     shuffle=False
@@ -150,7 +150,7 @@ def sampling_main(args, model_cls):
     force_uc_zero_embeddings = ["txt"]
     device = model.device
     with torch.no_grad():
-        for step, batch in enumerate(train_dataloader):
+        for step, batch in enumerate(test_dataloader):
             cnt = step
             gt = batch['mp4']
             text = batch['txt']

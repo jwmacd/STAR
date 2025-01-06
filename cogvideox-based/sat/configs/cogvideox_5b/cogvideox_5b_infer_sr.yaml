@@ -1,7 +1,7 @@
 args:
   latent_channels: 16
   mode: inference
-  load: '../../pretrained_weight/cogvideox'  #"/mnt/bn/videodataset-uswest/VSR/exp/cogvideox/CogvideoX-5B_baseline"
+  load: '../../pretrained_weight/cogvideox'
   batch_size: 1
   input_type: txt
   input_file: ../../input/text/prompt.txt
