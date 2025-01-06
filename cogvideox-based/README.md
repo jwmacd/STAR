@@ -1,0 +1,28 @@
+### CogVideoX-based Model Inference
+#### Step 1: Install the requirements
+```
+cd cogvideox-based/sat
+pip install -r requirements.txt
+```
+
+#### Step 2: Download the pretrained model STAR from [HuggingFace](https://huggingface.co/SherryX/STAR).
+You can put the weight into `pretrained_weight/`.
+
+#### Step 3: Prepare testing data
+You can put the testing videos in the `input/video/`.
+
+As for the prompt, there are three options: 1. No prompt. 2. Automatically generate a prompt [using Pllava](https://github.com/hpcaitech/Open-Sora/tree/main/tools/caption#pllava-captioning). 3. Manually write the prompt. You can put the txt file in the `input/text/`.
+
+
+#### Step 4: Change the cogfigs
+You need to update the paths in `cogvideox-based/sat/configs/cogvideox_5b/cogvideox_5b_infer_sr.yaml` to match your local environment, including `load`, `input_file`, and `output_dir`.
+
+
+#### Step 5: Replace the transformer.py in sat packpage
+Replace the `/cogvideo/lib/python3.9/site-packages/sat/model/transformer.py` in your enviroment with our provided [transformer.py]().
+
+
+#### Step 6: Running inference command
+```
+bash inference_sr.sh
+```
