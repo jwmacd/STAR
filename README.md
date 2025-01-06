@@ -81,6 +81,7 @@ You need to change the paths in `video_super_resolution/scripts/inference_sr.sh`
 ```
 bash video_super_resolution/scripts/inference_sr.sh
 ```
+If you encounter an OOM problem, you can set a smaller `frame_length` in `inference_sr.sh`.
 
 ### 2. CogVideoX-based
 Refer to these [instructions](https://github.com/NJU-PCALab/STAR/tree/main/cogvideox-based#cogvideox-based-model-inference) for inference with the CogVideX-5B-based model.
