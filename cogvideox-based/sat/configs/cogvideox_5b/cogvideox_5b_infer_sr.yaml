@@ -1,7 +1,7 @@
 args:
   latent_channels: 16
   mode: inference
-  load: '../../pretrained_weight/cogvideox'
+  load: '/mnt/bn/videodataset/VSR/pretrained_models/cogvideox/transformer'
   batch_size: 1
   input_type: txt
   input_file: ../../input/text/prompt.txt
@@ -94,14 +94,14 @@ model:
           ucg_rate: 0.1
           target: sgm.modules.encoders.modules.FrozenT5Embedder
           params:
-            model_dir: "/mnt/bn/videodataset-uswest/VDiT/data/CogVideoX/t5-v1_1-xxl"
+            model_dir: "/mnt/bn/videodataset/VSR/pretrained_models/cogvideox/t5-v1_1-xxl"
             max_length: 226
 
   first_stage_config:
     target: vae_modules.autoencoder.VideoAutoencoderInferenceWrapper
     params:
       cp_size: 1
-      ckpt_path: "/mnt/bn/videodataset-uswest/VDiT/data/CogVideoX/CogVideoX-5b-sat/vae/3d-vae.pt"
+      ckpt_path: "/mnt/bn/videodataset/VSR/pretrained_models/cogvideox/vae/3d-vae.pt"
       ignore_keys: [ 'loss' ]
 
       loss_config:

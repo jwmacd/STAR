@@ -116,7 +116,7 @@ def resize_for_rectangle_crop(arr, image_size, reshape_mode="random"):
 
 
 def sampling_main(args, model_cls):
-    test_dataset = PairedCaptionDataset(data_dir='/mnt/bn/videodataset-uswest/VSR/dataset/SRTest/Cogvideox_test',
+    test_dataset = PairedCaptionDataset(data_dir='/mnt/bn/videodataset/VSR/dataset/VSRTest/cogvideox_test',
                                          null_text_ratio=0, num_frames=25)
     test_dataloader = torch.utils.data.DataLoader(
     test_dataset,
