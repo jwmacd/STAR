@@ -19,7 +19,7 @@ You need to update the paths in `cogvideox-based/sat/configs/cogvideox_5b/cogvid
 
 
 #### Step 5: Replace the transformer.py in sat packpage
-Replace the `/cogvideo/lib/python3.9/site-packages/sat/model/transformer.py` in your enviroment with our provided [transformer.py]().
+Replace the `/cogvideo/lib/python3.9/site-packages/sat/model/transformer.py` in your enviroment with our provided [transformer.py](https://github.com/NJU-PCALab/STAR/blob/main/cogvideox-based/transformer.py).
 
 
 #### Step 6: Running inference command
