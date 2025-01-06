@@ -61,6 +61,7 @@ sudo apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 ```
 
 ## 🚀 Inference
+### 1. I2VGen-XL-based 
 #### Step 1: Download the pretrained model STAR from [HuggingFace](https://huggingface.co/SherryX/STAR).
 We provide two verisions for I2VGen-XL-based model, `heavy_deg.pt` for heavy degraded videos and `light_deg.pt` for light degraded videos (e.g., the low-resolution video downloaded from video websites).
 
