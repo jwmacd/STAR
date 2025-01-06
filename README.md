@@ -34,7 +34,7 @@
 
 
 ### 🔆 Updates
-- **2024.12.01**  The pretrained STAR model (I2VGen-XL and CogVideoX-5B versions) and inference code have been released.
+- **2025.01.07**  The pretrained STAR model (I2VGen-XL and CogVideoX-5B versions) and inference code have been released.
 
 
 ## 🔎 Method Overview
