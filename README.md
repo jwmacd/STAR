@@ -83,7 +83,7 @@ bash video_super_resolution/scripts/inference_sr.sh
 ```
 
 ### 2. CogVideoX-based
-Refer to these [instructions]() for inference with the CogVideX-5B-based model.
+Refer to these [instructions](https://github.com/NJU-PCALab/STAR/tree/main/cogvideox-based#cogvideox-based-model-inference) for inference with the CogVideX-5B-based model.
 
 Please note that the CogVideX-5B-based model supports only 720x480 input.
 
