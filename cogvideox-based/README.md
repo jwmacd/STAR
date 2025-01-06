@@ -5,8 +5,10 @@ cd cogvideox-based/sat
 pip install -r requirements.txt
 ```
 
-#### Step 2: Download the pretrained model STAR from [HuggingFace](https://huggingface.co/SherryX/STAR).
-You can put the weight into `pretrained_weight/`.
+#### Step 2: Download the pretrained model.
+Download STAR from [HuggingFace](https://huggingface.co/SherryX/STAR).
+Download VAE and T5 Encoder following this [instruction](https://github.com/THUDM/CogVideo/blob/main/sat/README_zh.md#cogvideox15-%E6%A8%A1%E5%9E%8B).
+
 
 #### Step 3: Prepare testing data
 You can put the testing videos in the `input/video/`.
