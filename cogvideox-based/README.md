@@ -7,6 +7,7 @@ pip install -r requirements.txt
 
 #### Step 2: Download the pretrained model.
 Download STAR from [HuggingFace](https://huggingface.co/SherryX/STAR).
+
 Download VAE and T5 Encoder following this [instruction](https://github.com/THUDM/CogVideo/blob/main/sat/README_zh.md#cogvideox15-%E6%A8%A1%E5%9E%8B).
 
 
