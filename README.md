@@ -83,8 +83,9 @@ bash video_super_resolution/scripts/inference_sr.sh
 ```
 
 ### 2. CogVideoX-based
-Please note that the CogVideX-5B-based model supports only 720x480 input.
+Refer to these [instructions]() for inference with the CogVideX-5B-based model.
 
+Please note that the CogVideX-5B-based model supports only 720x480 input.
 
 ## ❤️ Acknowledgments
 This project is based on [I2VGen-XL](https://github.com/ali-vilab/VGen), [VEnhancer](https://github.com/Vchitect/VEnhancer) and [CogVideoX](https://github.com/THUDM/CogVideo). Thanks for their awesome works.
