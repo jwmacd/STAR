@@ -89,7 +89,7 @@ Refer to these [instructions](https://github.com/NJU-PCALab/STAR/tree/main/cogvi
 Please note that the CogVideX-5B-based model supports only 720x480 input.
 
 ## ❤️ Acknowledgments
-This project is based on [I2VGen-XL](https://github.com/ali-vilab/VGen), [VEnhancer](https://github.com/Vchitect/VEnhancer) and [CogVideoX](https://github.com/THUDM/CogVideo). Thanks for their awesome works.
+This project is based on [I2VGen-XL](https://github.com/ali-vilab/VGen), [VEnhancer](https://github.com/Vchitect/VEnhancer), [CogVideoX](https://github.com/THUDM/CogVideo) and [OpenVid-1M](https://github.com/NJU-PCALab/OpenVid-1M). Thanks for their awesome works.
 
 
 ## 🎓Citations
