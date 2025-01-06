@@ -16,7 +16,7 @@ done
 # Read lines from the text file, skipping empty lines
 mapfile -t lines < <(grep -v '^\s*$' "$txt_file_path")
 
-# List of frame counts
+# The number of video frames processed simultaneously during each denoising process.
 frame_length=32
 
 # Debugging output
