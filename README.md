@@ -22,7 +22,7 @@
             <a href="https://nju-pcalab.github.io/projects/STAR" target='_blank'>
                 <img src="https://img.shields.io/badge/🌟-Project%20Page-blue">
             </a>
-            <a href="https://arxiv.org/abs/2407.07667" target='_blank'>
+            <a href="https://arxiv.org/abs/2501.02976" target='_blank'>
                 <img src="https://img.shields.io/badge/arXiv-2312.06640-b31b1b.svg">
             </a>
             <a href="https://youtu.be/hx0zrql-SrU" target='_blank'>
@@ -96,13 +96,14 @@ This project is based on [I2VGen-XL](https://github.com/ali-vilab/VGen), [VEnhan
 If our project helps your research or work, please consider citing our paper:
 
 ```
-@misc{xie2024addsr,
-      title={AddSR: Accelerating Diffusion-based Blind Super-Resolution with Adversarial Diffusion Distillation}, 
-      author={Rui Xie and Ying Tai and Kai Zhang and Zhenyu Zhang and Jun Zhou and Jian Yang},
-      year={2024},
-      eprint={2404.01717},
+@misc{xie2025starspatialtemporalaugmentationtexttovideo,
+      title={STAR: Spatial-Temporal Augmentation with Text-to-Video Models for Real-World Video Super-Resolution}, 
+      author={Rui Xie and Yinhong Liu and Penghao Zhou and Chen Zhao and Jun Zhou and Kai Zhang and Zhenyu Zhang and Jian Yang and Zhenheng Yang and Ying Tai},
+      year={2025},
+      eprint={2501.02976},
       archivePrefix={arXiv},
-      primaryClass={cs.CV}
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2501.02976}, 
 }
 ```
 
