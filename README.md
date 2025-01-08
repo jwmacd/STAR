@@ -61,6 +61,14 @@ sudo apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 ```
 
 ## 🚀 Inference
+
+### Model Weight
+| Base Model | Type | URL |
+|------------|--------|-----------------------------------------------------------------------------------------------|
+| I2VGen-XL | Light Degradation | [:link:](https://huggingface.co/SherryX/STAR/resolve/main/I2VGen-XL-based/light_deg.pt?download=true) |
+| I2VGen-XL | Heavy Degradation | [:link:](https://huggingface.co/SherryX/STAR/resolve/main/I2VGen-XL-based/heavy_deg.pt?download=true) |
+| CogVideoX-5B | Heavy Degradation | [:link:](https://huggingface.co/SherryX/STAR/tree/main/CogVideoX-5B-based) |
+
 ### 1. I2VGen-XL-based 
 #### Step 1: Download the pretrained model STAR from [HuggingFace](https://huggingface.co/SherryX/STAR).
 We provide two verisions for I2VGen-XL-based model, `heavy_deg.pt` for heavy degraded videos and `light_deg.pt` for light degraded videos (e.g., the low-resolution video downloaded from video websites).
