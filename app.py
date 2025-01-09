@@ -1,4 +1,3 @@
-import spaces
 import os
 import gradio as gr
 from video_super_resolution.scripts.inference_sr import STAR_sr
@@ -10,7 +9,6 @@ examples = [
 ]
 
 # Define a GPU-decorated function for enhancement
-@spaces.GPU(duration=120)
 def enhance_with_gpu(input_video, input_text):
     return star.enhance_a_video(input_video, input_text)
 
