@@ -28,12 +28,17 @@
             <a href="https://youtu.be/hx0zrql-SrU" target='_blank'>
                 <img src="https://img.shields.io/badge/Demo%20Video-%23FF0000.svg?logo=YouTube&logoColor=white">
             </a>
+            <a href="https://huggingface.co/spaces/SherryX/STAR" target='_blank'>
+                <img src="https://img.shields.io/static/v1?label=Demo STAR&message=HuggingFace&color=yellow">
+            </a>
         </h4>
     </div>
 </div>
 
 
 ## 🔆 Updates
+- **2025.01.09** The online demo of [STAR](https://huggingface.co/spaces/SherryX/STAR) is now live! Please note that due to the duration limitation of ZeroGPU, the running time may exceed the allocated GPU duration. If you'd like to try it, you can duplicate the demo and assign a paid GPU.
+
 - **2025.01.07**  The pretrained STAR model (I2VGen-XL and CogVideoX-5B versions) and inference code have been released.
 
 
