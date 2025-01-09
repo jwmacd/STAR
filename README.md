@@ -33,8 +33,14 @@
 </div>
 
 
-### 🔆 Updates
+## 🔆 Updates
 - **2025.01.07**  The pretrained STAR model (I2VGen-XL and CogVideoX-5B versions) and inference code have been released.
+
+
+## 📑 TODO
+- [ ] Gradio inference
+- [ ] Online demo
+- [ ] Training codes
 
 
 ## 🔎 Method Overview
