@@ -38,6 +38,7 @@
 
 
 ## 📑 TODO
+- [x] Inference codes
 - [ ] Gradio inference
 - [ ] Online demo
 - [ ] Training codes
