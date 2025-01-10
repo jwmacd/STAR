@@ -129,3 +129,8 @@ If our project helps your research or work, please consider citing our paper:
 
 ## 📧 Contact
 If you have any inquiries, please don't hesitate to reach out via email at `ruixie0097@gmail.com`
+
+
+## 📄 License
+I2VGen-XL-based model are distributed under the terms of the MIT License.
+CogVideoX-5B-based model are distributed under the terms of the [CogVideoX License](https://huggingface.co/THUDM/CogVideoX-5b/blob/main/LICENSE).
