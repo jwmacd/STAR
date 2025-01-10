@@ -132,5 +132,6 @@ If you have any inquiries, please don't hesitate to reach out via email at `ruix
 
 
 ## 📄 License
-I2VGen-XL-based model are distributed under the terms of the MIT License.
+I2VGen-XL-based model are distributed under the terms of the [MIT License](https://choosealicense.com/licenses/mit/).
+
 CogVideoX-5B-based model are distributed under the terms of the [CogVideoX License](https://huggingface.co/THUDM/CogVideoX-5b/blob/main/LICENSE).
