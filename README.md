@@ -43,9 +43,9 @@
 
 
 ## 📑 TODO
+- [ ] Training codes
 - [x] Inference codes
 - [x] Online demo
-- [ ] Training codes
 
 
 ## 🔎 Method Overview
