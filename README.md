@@ -31,6 +31,9 @@
             <a href="https://huggingface.co/spaces/SherryX/STAR" target='_blank'>
                 <img src="https://img.shields.io/static/v1?label=Demo STAR&message=HuggingFace&color=yellow">
             </a>
+            <a href="https://colab.research.google.com/drive/1K8A1U_BNpAteRhhW9A8pAYs6LWjItQs_?usp=sharing" target='_blank'>
+                <img src="https://img.shields.io/static/v1?label=Demo STAR&message=Google Colab&color=orange">
+            </a>
         </h4>
     </div>
 </div>
