@@ -73,7 +73,7 @@ cd STAR
 conda create -n star python=3.10
 conda activate star
 pip install -r requirements.txt
-sudo apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+sudo apt-get update && sudo apt-get install ffmpeg libsm6 libxext6  -y
 ```
 
 ## 🚀 Inference
