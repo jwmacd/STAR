@@ -64,6 +64,8 @@
 
 
 ## ⚙️ Dependencies and Installation
+**VARM requirement**: Upscaling the provided toy example by 4x, with 72 frames, a width of 426, and a height of 240, requires around 39GB of VRAM using the default settings. If you encounter an OOM problem, you can set a smaller frame_length in inference_sr.sh. We recommend using a GPU with at least 24GB of VRAM to run this project. 
+
 ```
 ## git clone this repository
 git clone https://github.com/NJU-PCALab/STAR.git
@@ -105,7 +107,6 @@ You need to change the paths in `video_super_resolution/scripts/inference_sr.sh`
 ```
 bash video_super_resolution/scripts/inference_sr.sh
 ```
-If you encounter an OOM problem, you can set a smaller `frame_length` in `inference_sr.sh`.
 
 ### 2. CogVideoX-based
 Refer to these [instructions](https://github.com/NJU-PCALab/STAR/tree/main/cogvideox-based#cogvideox-based-model-inference) for inference with the CogVideX-5B-based model.
