@@ -28,6 +28,7 @@
             <a href="https://youtu.be/hx0zrql-SrU" target='_blank'>
                 <img src="https://img.shields.io/badge/Demo%20Video-%23FF0000.svg?logo=YouTube&logoColor=white">
             </a>
+            <br>
             <a href="https://huggingface.co/spaces/SherryX/STAR" target='_blank'>
                 <img src="https://img.shields.io/static/v1?label=Demo STAR&message=HuggingFace&color=yellow">
             </a>
