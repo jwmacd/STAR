@@ -20,13 +20,13 @@
     <div>
         <h4 align="center">
             <a href="https://nju-pcalab.github.io/projects/STAR" target='_blank'>
-                <img src="https://img.shields.io/badge/🌟-Project%20Page-blue">
+                <img src="https://img.shields.io/badge/🌟-Project%20Page-blue" style="margin-right: 20px;">
             </a>
             <a href="https://arxiv.org/abs/2501.02976" target='_blank'>
-                <img src="https://img.shields.io/badge/arXiv-2501.02976-b31b1b.svg">
+                <img src="https://img.shields.io/badge/arXiv-2501.02976-b31b1b.svg" style="margin-right: 20px;">
             </a>
             <a href="https://youtu.be/hx0zrql-SrU" target='_blank'>
-                <img src="https://img.shields.io/badge/Demo%20Video-%23FF0000.svg?logo=YouTube&logoColor=white">
+                <img src="https://img.shields.io/badge/Demo%20Video-%23FF0000.svg?logo=YouTube&logoColor=white" style="margin-right: 20px;">
             </a>
             <br>
             <a href="https://huggingface.co/spaces/SherryX/STAR" target='_blank'>
