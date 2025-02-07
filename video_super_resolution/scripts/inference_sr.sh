@@ -2,6 +2,11 @@
 
 # Set strict error handling
 set -euo pipefail
+trap 'echo "Error occurred. Exiting..." >&2; exit 1' ERR
+
+# PyTorch memory optimization environment variables
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+export CUDA_LAUNCH_BLOCKING=1
 
 # Base directory setup
 BASE_DIR="/app/video_super_resolution"
@@ -16,10 +21,12 @@ PROMPT_FILE="${TEXT_DIR}/prompt.txt"
 MODEL_FILE="${MODEL_DIR}/model.pt"
 
 # Processing parameters
-FRAME_LENGTH=16  # Number of video frames processed simultaneously
+FRAME_LENGTH=8  # Number of video frames processed simultaneously
+UPSCALE=2
 
 # Function to check if required directories and files exist
 check_prerequisites() {
+    echo "Checking prerequisites..."
     local missing=0
 
     # Check directories
@@ -45,9 +52,7 @@ check_prerequisites() {
     # Create results directory if it doesn't exist
     mkdir -p "$RESULTS_DIR"
 
-    if [ $missing -eq 1 ]; then
-        exit 1
-    fi
+    return $missing
 }
 
 # Main processing function
@@ -98,7 +103,7 @@ process_videos() {
             --input_path "${mp4_file}" \
             --model_path "${MODEL_FILE}" \
             --prompt "${line}" \
-            --upscale 4 \
+            --upscale ${UPSCALE} \
             --max_chunk_len ${FRAME_LENGTH} \
             --file_name "${file_name}.mp4" \
             --save_dir "${RESULTS_DIR}"
@@ -109,6 +114,9 @@ process_videos() {
 
 # Main execution
 echo "Starting video super-resolution processing..."
-check_prerequisites
+if ! check_prerequisites; then
+    echo "Prerequisites check failed. Exiting."
+    exit 1
+fi
 process_videos
 echo "All videos processed successfully."

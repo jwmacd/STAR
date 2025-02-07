@@ -28,24 +28,32 @@ class STAR():
                  guide_scale=7.5,
                  upscale=4,
                  max_chunk_len=32,
+                 batch_size=1,
+                 device='cuda:0'
                  ):
-        self.model_path=model_path
-        logger.info('checkpoint_path: {}'.format(self.model_path))
+        self.device = torch.device(device if torch.cuda.is_available() else 'cpu')
+        
+        logger.info(f'Using device: {self.device}')
+        if self.device.type == 'cuda':
+            logger.info(f'Total GPU memory: {torch.cuda.get_device_properties(self.device).total_memory / 1e9:.2f} GB')
 
         self.result_dir = result_dir
         self.file_name = file_name
+        self.model_path = model_path
+        logger.info(f'checkpoint_path: {self.model_path}')
         os.makedirs(self.result_dir, exist_ok=True)
 
         model_cfg = EasyDict(__name__='model_cfg')
         model_cfg.model_path = self.model_path
-        self.model = VideoToVideo_sr(model_cfg)
-
-        steps = 15 if solver_mode == 'fast' else steps
-        self.solver_mode=solver_mode
-        self.steps=steps
-        self.guide_scale=guide_scale
+        # Initialize model with device specified
+        self.model = VideoToVideo_sr(model_cfg, device=self.device)  # Pass device to model initialization
+        
+        self.batch_size = batch_size
+        self.solver_mode = solver_mode
+        self.steps = 15 if solver_mode == 'fast' else steps
+        self.guide_scale = guide_scale
         self.upscale = upscale
-        self.max_chunk_len=max_chunk_len
+        self.max_chunk_len = max_chunk_len
 
     def enhance_a_video(self, video_path, prompt):
         logger.info('input video path: {}'.format(video_path))
@@ -62,19 +70,46 @@ class STAR():
         target_h, target_w = h * self.upscale, w * self.upscale   # adjust_resolution(h, w, up_scale=4)
         logger.info('target resolution: {}'.format((target_h, target_w)))
 
-        pre_data = {'video_data': video_data, 'y': caption}
-        pre_data['target_res'] = (target_h, target_w)
-
         total_noise_levels = 900
         setup_seed(666)
 
-        with torch.no_grad():
-            data_tensor = collate_fn(pre_data, 'cuda:0')
-            output = self.model.test(data_tensor, total_noise_levels, steps=self.steps, \
-                                solver_mode=self.solver_mode, guide_scale=self.guide_scale, \
-                                max_chunk_len=self.max_chunk_len
-                                )
+        # Process video in chunks
+        chunk_size = min(self.max_chunk_len, len(video_data))
+        outputs = []
+        
+        for i in range(0, len(video_data), chunk_size):
+            chunk = video_data[i:i + chunk_size]
+            pre_data = {
+                'video_data': chunk, 
+                'y': caption,
+                'target_res': (target_h, target_w)
+            }
+            
+            try:
+                with torch.cuda.amp.autocast():  # Enable automatic mixed precision
+                    with torch.no_grad():
+                        data_tensor = collate_fn(pre_data, self.device)
+                        chunk_output = self.model.test(
+                            data_tensor, 
+                            total_noise_levels, 
+                            steps=self.steps,
+                            solver_mode=self.solver_mode, 
+                            guide_scale=self.guide_scale,
+                            max_chunk_len=chunk_size
+                        )
+                        outputs.append(chunk_output.cpu())  # Move to CPU immediately
+                
+                # Clear cache after each chunk
+                torch.cuda.empty_cache()
+                
+            except RuntimeError as e:
+                if "out of memory" in str(e):
+                    torch.cuda.empty_cache()
+                    logger.error(f"OOM error processing chunk {i}. Try reducing chunk_size or upscale factor.")
+                raise e
 
+        # Concatenate all chunks
+        output = torch.cat(outputs, dim=0)
         output = tensor2vid(output)
 
         # Using color fix
@@ -98,6 +133,9 @@ def parse_args():
     parser.add_argument("--cfg", type=float, default=7.5)
     parser.add_argument("--solver_mode", type=str, default='fast', help='fast | normal')
     parser.add_argument("--steps", type=int, default=15)
+
+    parser.add_argument("--batch_size", type=int, default=1, help="batch size for processing")
+    parser.add_argument("--device", type=str, default='cuda:0', help="device to use (cuda:0, cpu)")
 
     return parser.parse_args()
 
@@ -128,6 +166,8 @@ def main():
                 guide_scale=guide_scale,
                 upscale=upscale,
                 max_chunk_len=max_chunk_len,
+                batch_size=args.batch_size,
+                device=args.device
                 )
 
     star.enhance_a_video(input_path, prompt)

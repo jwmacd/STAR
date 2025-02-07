@@ -18,9 +18,9 @@ from diffusers import AutoencoderKLTemporalDecoder
 logger = get_logger()
 
 class VideoToVideo_sr():
-    def __init__(self, opt, device=torch.device(f'cuda:0')):
+    def __init__(self, opt, device=torch.device('cuda:0')):
         self.opt = opt
-        self.device = device # torch.device(f'cuda:0')
+        self.device = device
 
         # text_encoder
         text_encoder = FrozenOpenCLIPEmbedder(device=self.device, pretrained="laion2b_s32b_b79k")
@@ -34,7 +34,7 @@ class VideoToVideo_sr():
         generator.eval()
 
         cfg.model_path = opt.model_path
-        load_dict = torch.load(cfg.model_path, map_location='cpu')
+        load_dict = torch.load(cfg.model_path, map_location=self.device)
         if 'state_dict' in load_dict:
             load_dict = load_dict['state_dict']
         ret = generator.load_state_dict(load_dict, strict=False)
@@ -55,11 +55,12 @@ class VideoToVideo_sr():
 
         # Temporal VAE
         vae = AutoencoderKLTemporalDecoder.from_pretrained(
-            "stabilityai/stable-video-diffusion-img2vid", subfolder="vae", variant="fp16"
-        )
+            "stabilityai/stable-video-diffusion-img2vid", 
+            subfolder="vae", 
+            variant="fp16"
+        ).to(self.device)
         vae.eval()
         vae.requires_grad_(False)
-        vae.to(self.device)
         self.vae = vae
         logger.info('Build Temporal VAE')
 
@@ -71,6 +72,14 @@ class VideoToVideo_sr():
         negative_y = text_encoder(self.negative_prompt).detach()
         self.negative_y = negative_y
 
+    def to(self, device):
+        """Add explicit device movement support"""
+        self.device = device
+        self.text_encoder.model.to(device)
+        self.generator.to(device)
+        self.vae.to(device)
+        self.negative_y = self.negative_y.to(device)
+        return self
 
     def test(self, input: Dict[str, Any], total_noise_levels=1000, \
                  steps=50, solver_mode='fast', guide_scale=7.5, max_chunk_len=32):
