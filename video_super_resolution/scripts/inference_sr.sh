@@ -5,8 +5,8 @@ set -euo pipefail
 trap 'echo "Error occurred. Exiting..." >&2; exit 1' ERR
 
 # PyTorch memory optimization environment variables
-export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-export CUDA_LAUNCH_BLOCKING=1
+#export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+#export CUDA_LAUNCH_BLOCKING=1
 
 # Base directory setup
 BASE_DIR="/app/video_super_resolution"

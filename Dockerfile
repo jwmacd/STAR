@@ -22,11 +22,13 @@ WORKDIR /app
 COPY . .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir -r cogvideox-based/sat/requirements.txt
+RUN pip install --no-cache-dir \
+    -r requirements.txt \
+#    -r cogvideox-based/sat/requirements.txt \
+    --extra-index-url https://download.pytorch.org/whl/cu118
 
 # Replace transformer.py in SAT package
-RUN cp cogvideox-based/transformer.py /usr/local/lib/python3.10/dist-packages/sat/model/transformer.py
+#RUN cp cogvideox-based/transformer.py /usr/local/lib/python3.10/dist-packages/sat/model/transformer.py
 
 # Runtime stage - minimal CUDA environment
 FROM nvidia/cuda:${CUDA_VERSION}-runtime-ubuntu${UBUNTVERSION}
@@ -48,4 +50,9 @@ COPY --from=builder /app /app
 ENV PYTHONPATH=/usr/local/lib/python3.10/dist-packages:/app
 
 WORKDIR /app/video_super_resolution
+
+ENV XFORMERS_FORCE_DISABLE_TRITON="1"
+ENV ATTENTION=flash
+ENV FORCE_CUDA="1"
+
 ENTRYPOINT ["bash", "scripts/inference_sr.sh"]
