@@ -4,10 +4,6 @@
 set -euo pipefail
 trap 'echo "Error occurred. Exiting..." >&2; exit 1' ERR
 
-# PyTorch memory optimization environment variables
-#export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-#export CUDA_LAUNCH_BLOCKING=1
-
 # Base directory setup
 BASE_DIR="/app/video_super_resolution"
 INPUT_DIR="${BASE_DIR}/input"
@@ -21,8 +17,8 @@ PROMPT_FILE="${TEXT_DIR}/prompt.txt"
 MODEL_FILE="${MODEL_DIR}/model.pt"
 
 # Processing parameters
-FRAME_LENGTH=8  # Number of video frames processed simultaneously
-UPSCALE=2
+FRAME_LENGTH=4  # Number of video frames processed simultaneously
+UPSCALE=1
 
 # Function to check if required directories and files exist
 check_prerequisites() {
@@ -30,35 +26,39 @@ check_prerequisites() {
     local missing=0
 
     # Check directories
-    for dir in "$VIDEO_DIR" "$TEXT_DIR" "$MODEL_DIR"; do
+    for dir in "$VIDEO_DIR" "$TEXT_DIR" "$MODEL_DIR" "$RESULTS_DIR"; do
         if [ ! -d "$dir" ]; then
-            echo "Error: Required directory not found: $dir"
-            missing=1
+            echo "Creating directory: $dir"
+            mkdir -p "$dir" || {
+                echo "Error: Failed to create directory: $dir" >&2
+                return 1
+            }
         fi
     done
 
-    # Check model file
+    # Check required files with more descriptive messages
     if [ ! -f "$MODEL_FILE" ]; then
-        echo "Error: Model file not found: $MODEL_FILE"
+        echo "Error: Required model file not found at: $MODEL_FILE" >&2
         missing=1
     fi
 
-    # Check prompt file
     if [ ! -f "$PROMPT_FILE" ]; then
-        echo "Error: Prompt file not found: $PROMPT_FILE"
+        echo "Error: Required prompt file not found at: $PROMPT_FILE" >&2
         missing=1
     fi
-
-    # Create results directory if it doesn't exist
-    mkdir -p "$RESULTS_DIR"
 
     return $missing
 }
 
 # Main processing function
 process_videos() {
+    local exit_code=0
+
     # Get all .mp4 files in the folder using find to handle special characters
-    mapfile -t mp4_files < <(find "$VIDEO_DIR" -type f -name "*.mp4")
+    if ! mapfile -t mp4_files < <(find "$VIDEO_DIR" -type f -name "*.mp4" -print0 | sort -z | tr '\0' '\n'); then
+        echo "Error: Failed to read MP4 files" >&2
+        return 1
+    fi
 
     # Print the list of MP4 files
     echo "MP4 files to be processed:"
@@ -89,27 +89,34 @@ process_videos() {
     for i in "${!mp4_files[@]}"; do
         mp4_file="${mp4_files[$i]}"
         line="${lines[$i]}"
-        
+
         # Extract the filename without the extension
         file_name=$(basename "$mp4_file" .mp4)
-        
-        echo "Processing video file: $mp4_file with prompt: $line"
-            
-        # Run Python script with parameters
-        python3 \
+
+        echo "Processing video file: $mp4_file"
+        echo "Using prompt: $line"
+
+        if ! torchrun \
+            --nnodes=1 \
+            --nproc_per_node=4 \
             "${BASE_DIR}/scripts/inference_sr.py" \
-            --solver_mode 'fast' \
-            --steps 15 \
             --input_path "${mp4_file}" \
             --model_path "${MODEL_FILE}" \
             --prompt "${line}" \
             --upscale ${UPSCALE} \
             --max_chunk_len ${FRAME_LENGTH} \
             --file_name "${file_name}.mp4" \
-            --save_dir "${RESULTS_DIR}"
+            --save_dir "${RESULTS_DIR}"; then
+            
+            echo "Error: Failed to process video: $file_name" >&2
+            exit_code=1
+            continue  # Continue with next video instead of stopping completely
+        fi
 
-        echo "Completed processing: $file_name"
+        echo "Successfully processed: $file_name"
     done
+
+    return $exit_code
 }
 
 # Main execution

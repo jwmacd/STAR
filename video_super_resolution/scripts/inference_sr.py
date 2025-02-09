@@ -15,21 +15,26 @@ from video_super_resolution.color_fix import adain_color_fix
 
 from inference_utils import *
 
+import torch.distributed as dist
+from torch.nn.parallel import DistributedDataParallel as DDP
+
 logger = get_logger()
 
-
 class STAR():
-    def __init__(self, 
-                 result_dir='./results/',
-                 file_name='000_video.mp4',
-                 model_path='',
-                 solver_mode='fast',
-                 steps=15,
-                 guide_scale=7.5,
-                 upscale=4,
-                 max_chunk_len=32,
-                 ):
-        self.model_path=model_path
+    def __init__(
+        self,
+        result_dir='./results/',
+        file_name='000_video.mp4',
+        model_path='',
+        solver_mode='fast',
+        steps=15,
+        guide_scale=7.5,
+        upscale=4,
+        max_chunk_len=32,
+        rank=0,
+        world_size=1
+    ):
+        self.model_path = model_path
         logger.info('checkpoint_path: {}'.format(self.model_path))
 
         self.result_dir = result_dir
@@ -38,7 +43,10 @@ class STAR():
 
         model_cfg = EasyDict(__name__='model_cfg')
         model_cfg.model_path = self.model_path
-        self.model = VideoToVideo_sr(model_cfg)
+        self.model = VideoToVideo_sr(model_cfg, device=torch.device(f'cuda:{rank}')) # Pass device here
+
+        # Wrap with DDP
+        self.model.generator = DDP(self.model.generator, device_ids=[rank])
 
         steps = 15 if solver_mode == 'fast' else steps
         self.solver_mode=solver_mode
@@ -46,6 +54,8 @@ class STAR():
         self.guide_scale=guide_scale
         self.upscale = upscale
         self.max_chunk_len=max_chunk_len
+        self.rank = rank
+        self.world_size = world_size
 
     def enhance_a_video(self, video_path, prompt):
         logger.info('input video path: {}'.format(video_path))
@@ -68,9 +78,9 @@ class STAR():
         total_noise_levels = 900
         setup_seed(666)
 
-        with torch.no_grad():
-            data_tensor = collate_fn(pre_data, 'cuda:0')
-            output = self.model.test(data_tensor, total_noise_levels, steps=self.steps, \
+        # No longer need torch.no_grad() with DDP, as it handles gradient synchronization
+        data_tensor = collate_fn(pre_data, f'cuda:{self.rank}')  # Use rank for device
+        output = self.model.test(data_tensor, total_noise_levels, steps=self.steps, \
                                 solver_mode=self.solver_mode, guide_scale=self.guide_scale, \
                                 max_chunk_len=self.max_chunk_len
                                 )
@@ -80,15 +90,27 @@ class STAR():
         # Using color fix
         output = adain_color_fix(output, video_data)
 
-        save_video(output, self.result_dir, self.file_name, fps=input_fps)
-        return os.path.join(self.result_dir, self.file_name)
-    
+        if self.rank == 0: # Only save on the main process
+            save_video(output, self.result_dir, self.file_name, fps=input_fps)
+
+        return os.path.join(self.result_dir, self.file_name) if self.rank == 0 else None
+
 
 def parse_args():
     parser = ArgumentParser()
     
-    parser.add_argument("--input_path", required=True, type=str, help="input video path")
-    parser.add_argument("--save_dir", type=str, default='results', help="save directory")
+    parser.add_argument(
+        "--input_path",
+        required=True,
+        type=str,
+        help="input video path"
+    )
+    parser.add_argument(
+        "--save_dir",
+        type=str,
+        default='results',
+        help="save directory"
+    )
     parser.add_argument("--file_name", type=str, help="file name")
     parser.add_argument("--model_path", type=str, default='./pretrained_weight/model.pt', help="model path")
     parser.add_argument("--prompt", type=str, default='a good video', help="prompt")
@@ -99,11 +121,21 @@ def parse_args():
     parser.add_argument("--solver_mode", type=str, default='fast', help='fast | normal')
     parser.add_argument("--steps", type=int, default=15)
 
+    # Add DDP arguments
+    parser.add_argument('--local_rank', type=int, default=0,
+                        help='Local rank for distributed training.  DO NOT SET MANUALLY.')
+
     return parser.parse_args()
 
 def main():
     
     args = parse_args()
+
+    # Initialize DDP
+    dist.init_process_group(backend='nccl')  # Use NCCL backend for NVIDIA GPUs
+    rank = dist.get_rank()
+    world_size = dist.get_world_size()
+    torch.cuda.set_device(rank)  # Set the correct GPU for this process
 
     input_path = args.input_path
     prompt = args.prompt
@@ -128,9 +160,13 @@ def main():
                 guide_scale=guide_scale,
                 upscale=upscale,
                 max_chunk_len=max_chunk_len,
+                rank=rank, # Pass rank and world size
+                world_size=world_size
                 )
 
     star.enhance_a_video(input_path, prompt)
+
+    dist.destroy_process_group() # Clean up DDP
 
 
 if __name__ == '__main__':

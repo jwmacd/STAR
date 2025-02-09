@@ -553,6 +553,7 @@ class Upsample(nn.Module):
             self.conv = nn.Conv2d(
                 self.channels, self.out_channels, 3, padding=padding)
 
+#    @torch.cuda.amp.autocast(enabled=False)
     def forward(self, x):
         assert x.shape[1] == self.channels
         if self.dims == 3:
